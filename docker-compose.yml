@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: postgres
+    container_name: db
     restart: always
     volumes:
       - db_volume:/var/lib/postgresql/data
@@ -26,7 +26,7 @@ services:
 
   nginx:
     restart: always
-    container_name: v_nginx
+    container_name: w_nginx
     build:
       dockerfile: ./Dockerfile
       context: ./nginx/
