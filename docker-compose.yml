@@ -1,7 +1,6 @@
 services:
-  db:
+  w_db:
     image: postgres:15-alpine
-    container_name: postgres_db
     restart: always
     volumes:
       - db_volume:/var/lib/postgresql/data
@@ -10,7 +9,6 @@ services:
 
   weather:
     restart: always
-    container_name: weather
     build: .
     #    command: python manage.py runserver 0.0.0.0:8000
     #    command: gunicorn -b 0.0.0.0:8000 voditel.wsgi:application
@@ -19,14 +17,13 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      - w_db
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
 
-  nginx:
+  w_nginx:
     restart: always
-    container_name: w_nginx
     build:
       dockerfile: ./Dockerfile
       context: ./nginx/
